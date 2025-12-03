@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="fragments/head :: head"></th:block>
+
+<body class="bg-taco">
+
+<th:block th:replace="fragments/navbar :: navbar"></th:block>
+
+<div class="container mt-5 text-light">
+    <h2 class="text-warning fw-bold">Nuestra Misión</h2>
+    <p class="lead mt-3">
+        Brindar la mejor experiencia gastronómica basada en tacos auténticos,
+        elaborados con ingredientes frescos y recetas tradicionales.
+    </p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<div th:insert="footer :: footer"></div>
+</body>
+</html>

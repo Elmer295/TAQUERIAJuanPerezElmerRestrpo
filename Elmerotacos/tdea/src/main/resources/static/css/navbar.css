@@ -1,0 +1,9 @@
+/* NAVBAR TAQUERÍA */
+.bg-taco {
+    background-color: var(--taco-red) !important;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.4rem;
+}

@@ -1,0 +1,48 @@
+body.bg-taco {
+    background: url("https://danosseasoning.com/wp-content/uploads/2022/03/Beef-Tacos-1024x767.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    backdrop-filter: blur(3px);
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+h1, h2 {
+    text-shadow: 2px 2px 8px #000;
+}
+
+.lead {
+    font-size: 1.2rem;
+}
+
+.dropdown-menu-dark .dropdown-item:hover {
+    background-color: #ffc107;
+    color: #000 !important;
+}
+.wrapper {
+    min-height: 100vh; /* Ocupa toda la altura de la ventana */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenido principal que empuja el footer */
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Estilo del footer */
+footer {
+    background-color: #FF6F00;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
