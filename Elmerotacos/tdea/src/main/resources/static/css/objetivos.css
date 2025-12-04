@@ -1,0 +1,45 @@
+/* Fondo de la página */
+.bg-taco {
+    background-color: #f5d198; /* tono suave de fondo */
+    min-height: 100vh;
+    background: url("https://danosseasoning.com/wp-content/uploads/2022/03/Beef-Tacos-1024x767.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Tarjeta animada */
+.card-hover {
+    transition: transform 0.4s, box-shadow 0.4s;
+    cursor: pointer;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente para legibilidad */
+}
+
+.card-hover:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Texto de la tarjeta */
+.card-body {
+    padding: 4rem;
+}
+
+.card-title {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #d9534f; /* Color rojo para resaltar */
+}
+
+.card-text {
+    line-height: 1.6;
+    color: #333; /* Contraste suficiente sobre la tarjeta */
+}
+
+/* Efecto typing */
+.typing {
+    border-right: 2px solid #d9534f;
+    white-space: nowrap;
+    overflow: hidden;
+}

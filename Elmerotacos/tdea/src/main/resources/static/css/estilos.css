@@ -35,7 +35,7 @@ main {
 
 /* Estilo del footer */
 footer {
-    background-color: #FF6F00;
+    background-color: #5a3112;
     color: white;
     text-align: center;
     padding: 20px 0;
@@ -45,4 +45,24 @@ footer a {
     color: white;
     text-decoration: none;
     margin: 0 10px;
+}
+.img1{
+    
+    margin-top: 5%;
+}.img2{
+    
+    margin-top: 5%;
+}
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 10%;
+}
+body {
+    padding-top: 0px; /* ajusta según la altura de tu navbar */
+}
+.navbar{
+    z-index: 1030;
 }

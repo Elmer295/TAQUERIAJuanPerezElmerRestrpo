@@ -1,21 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="fragments/head :: head"></th:block>
+<head>
+    <meta charset="UTF-8">
+    <title>ElmeroTaco - Misión</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" th:href="@{/css/objetivos.css}">
+</head>
 
 <body class="bg-taco">
 
-<th:block th:replace="fragments/navbar :: navbar"></th:block>
+    <!-- Navbar -->
+    <th:block th:replace="fragments/navbar :: navbar"></th:block>
 
-<div class="container mt-5 text-light">
-    <h2 class="text-warning fw-bold">Nuestra Misión</h2>
-    <p class="lead mt-3">
-        Brindar la mejor experiencia gastronómica basada en tacos auténticos,
-        elaborados con ingredientes frescos y recetas tradicionales.
-    </p>
-</div>
+    <!-- Contenedor de la tarjeta -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card card-hover">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Nuestra Misión</h5>
+                        <p class="card-text">
+                        Ofrecer a cada cliente una experiencia gastronómica memorable:
+                         tacos preparados con ingredientes de calidad, sabores auténticos, servicio atento y un ambiente acogedor.
+                          Queremos que cada taco cuente una historia — 
+                          de tradición, cariño por la cocina y dedicación — 
+                          para que al entrar a nuestra taquería, el comensal sienta que está en casa. 
+                          Nos comprometemos con la higiene, el trato cercano, la constancia en calidad y la pasión por lo que hacemos, asegurando que cada visita sea mejor que la anterior.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<div th:insert="footer :: footer"></div>
+    <!-- Footer -->
+    <div th:insert="footer :: footer"></div>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>
