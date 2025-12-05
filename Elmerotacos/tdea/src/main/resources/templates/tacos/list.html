@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <!-- HEAD -->
+    <th:block th:replace="fragments/head :: head"></th:block>
+    <link rel="stylesheet" href="/css/menu.css">
+
+<body class="bg-taco">
+
+    <!-- NAVBAR -->
+    <th:block th:replace="fragments/navbar :: navbar"></th:block>
+    <div class="container mt-5 text-center">
+    <h1 class="text-warning display-4 fw-bold">¡MENU DE ELMEROTACO! 🌮🔥</h1>
+    <p class="text-light lead mt-3">Los tacos más sabrosos de la galaxia.</p>
+</div>
+
+    <div class="container mt-4">
+
+        <!-- CONTENEDOR DE CARDS -->
+        <div class="taco-container">
+            
+            <!-- CARD GENERADA AUTOMÁTICAMENTE -->
+            <div class="taco-card" th:each="taco : ${listarTacos}">
+                
+                <img th:src="@{'/img/' + ${taco.imagen}}" 
+                     alt="imagen no cargada" 
+                     class="taco-img">
+
+                <h5 class="taco-title" th:text="${taco.nombre}">Nombre del taco</h5>
+
+                <p class="taco-precio">
+                    Precio: <span th:text="${taco.precio}">0000</span> COP
+                </p>
+
+                <button type="button" th:onclick="'addToCart(' + ${taco.id} + ')'" class="btn btn-primary">
+                    Añadir al carrito
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- BOTÓN PARA VER EL CARRITO -->
+        <div class="text-center mt-5">
+            <a href="/menu/carrito" class="btn btn-warning btn-lg fw-bold shadow-lg" style="border-radius: 12px;">
+                🛒 Ver carrito
+            </a>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <th:block th:replace="fragments/footer :: footer"></th:block>
+
+    <style>
+        .toast-message{position:fixed;right:20px;bottom:20px;background:#333;color:#fff;padding:10px 14px;border-radius:8px;box-shadow:0 4px 8px rgba(0,0,0,.2);z-index:1050;font-size:14px}
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        async function addToCart(id){
+            console.log('Click')
+            try{
+                const res = await fetch('/menu/carrito/agregar/' + id, {method: 'GET', credentials: 'same-origin'});
+                if(res.ok){
+                    showToast('Añadido al carrito');
+                    const el = document.getElementById('cart-count');
+                    if(el){
+                        const val = parseInt(el.textContent||'0') + 1;
+                        el.textContent = val;
+                    }
+                } else {
+                    showToast('Error al añadir al carrito');
+                }
+            } catch(e){
+                showToast('Error de red');
+            }
+        }
+
+        function showToast(message){
+            const t = document.createElement('div');
+            t.className = 'toast-message';
+            t.textContent = message;
+            document.body.appendChild(t);
+            setTimeout(()=>{ t.remove(); }, 2000);
+        }
+        /*]]>*/
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TdeaApplication<tdea>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "elmerotacos.tdea.TdeaApplication",
+            "projectName": "tdea",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

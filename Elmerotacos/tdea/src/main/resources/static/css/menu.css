@@ -1,0 +1,57 @@
+/* Fondo de la página */
+.bg-taco {
+    background-color: #f5d198; /* tono suave de fondo */
+    min-height: 100vh;
+    background: url("https://danosseasoning.com/wp-content/uploads/2022/03/Beef-Tacos-1024x767.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+
+.taco-container {
+    display: flex;
+    margin-bottom: 160px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+/* Estilos de cada tarjeta */
+.taco-card {
+    width: 220px;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto hover */
+.taco-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen del taco */
+.taco-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Título */
+.taco-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+.taco-precio {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #d9534f; /* rojo tipo restaurante */
+}
