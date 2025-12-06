@@ -1,0 +1,200 @@
+/* ===========================
+   FONDO GENERAL
+=========================== */
+body {
+    font-family: 'Poppins', system-ui, sans-serif;
+    margin: 0;
+    background-image: url('/img/background-tacos.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* ===========================
+   CONTENEDOR DEL CARRITO
+=========================== */
+.carrito-container {
+    max-width: 1000px;
+    margin: 40px auto 60px auto;
+    background: rgba(255, 255, 255, 0.93);
+    padding: 28px;
+    border-radius: 20px;
+    border: 3px solid #000;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.35);
+    animation: fadeIn 0.8s ease;
+}
+
+/* ===========================
+   TÍTULO
+=========================== */
+.carrito-container h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 2px 2px 3px #000;
+    text-align: center;
+    margin-bottom: 15px;
+    animation: fadeIn 0.8s ease;
+}
+
+/* ===========================
+   ALERTA CON ANIMACIÓN
+=========================== */
+.carrito-container .alert {
+    max-width: 650px;
+    margin: 0 auto 18px auto;
+    animation: fadeIn 0.6s ease;
+}
+
+/* ===========================
+   CARD de TABLA (con zoom)
+=========================== */
+.carrito-card {
+    border-radius: 18px;
+    transition: transform .25s ease;
+}
+
+.carrito-card:hover {
+    transform: scale(1.02);
+}
+
+/* ===========================
+   IMAGEN DEL TACO
+=========================== */
+.item-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    object-fit: cover;
+    transition: transform .3s ease;
+}
+
+.item-img:hover {
+    transform: scale(1.15);
+}
+
+/* ===========================
+   TABLA RESPONSIVE
+=========================== */
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 12px;
+}
+
+.table thead {
+    background: #fef3c7;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    padding: 12px;
+}
+
+/* Header fijo */
+.table-head-fixed {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+/* Hover fila */
+.fila-taco {
+    transition: background-color 0.25s ease;
+}
+
+.fila-taco:hover {
+    background-color: #fff7e6;
+}
+
+/* ===========================
+   INPUTS 
+=========================== */
+.cantidad-input {
+    width: 75px;
+    margin: 0 auto;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    padding: 4px 8px;
+    transition: box-shadow 0.2s ease;
+}
+
+.cantidad-input:focus {
+    outline: none;
+    border-color: #ea580c;
+    box-shadow: 0 0 5px rgba(234, 88, 12, 0.4);
+}
+
+/* ===========================
+   BOTONES
+=========================== */
+.btn-actualizar {
+    background-color: #f59e0b;
+    color: #111827;
+    border: none;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 6px 14px;
+    transition: 0.2s ease;
+}
+
+.btn-actualizar:hover {
+    background-color: #ea580c;
+    color: white;
+    transform: scale(1.05);
+}
+
+.boton-confirmar {
+    font-weight: 700;
+    transition: 0.2s ease;
+}
+
+.boton-confirmar:hover {
+    transform: scale(1.05);
+}
+
+/* ===========================
+   RESUMEN TOTAL
+=========================== */
+.total {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #b91c1c;
+}
+
+/* ===========================
+   ANIMACIONES 
+=========================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===========================
+   RESPONSIVE (MÓVIL)
+=========================== */
+@media (max-width: 768px) {
+
+    .carrito-container {
+        padding: 18px 16px;
+        margin-inline: 10px;
+    }
+
+    .table-responsive {
+        border-radius: 0;
+    }
+
+    .fila-taco {
+        background: #ffffff;
+        margin-bottom: 10px;
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+    }
+
+    /* Compactar imagen */
+    .item-img {
+        width: 60px;
+        height: 60px;
+    }
+}

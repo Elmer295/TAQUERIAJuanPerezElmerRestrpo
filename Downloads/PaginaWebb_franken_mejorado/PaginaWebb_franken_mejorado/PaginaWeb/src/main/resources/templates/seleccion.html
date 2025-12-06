@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/seleccion.css" rel="stylesheet">
+</head>
+<body class="bg-menu">
+    <th:block th:replace="fragments/navbar :: navbar"></th:block>
+    <header class="text-center mb-5 mt-4">
+    <div class="titulo-animado">
+        <h2 class="fw-semibold text-light">🌮 Menú de Tacos</h2>
+        <div class="titulo-linea"></div>
+    </div>
+</header>
+
+<div class="container mt-5">
+
+    <!-- Mensaje -->
+    <div th:if="${mensaje}" class="alert alert-warning text-center">
+        <span th:text="${mensaje}"></span>
+    </div>
+
+    <!-- Título -->
+    <header class="text-center mb-4">
+
+        <!-- Botón admin -->
+        <div th:if="${session.usuarioLogueado != null
+            and session.usuarioLogueado.correo != null
+            and #strings.equalsIgnoreCase(session.usuarioLogueado.correo, 'admin@elmerotaco.com')}">
+            <a class="btn btn-warning fw-semibold" th:href="@{/menu/tacos/nuevo}">
+                ➕ Agregar taco
+            </a>
+        </div>
+    </header>
+
+    <p class="text-center mb-5">
+    <span class="texto-cuadro">
+        Selecciona el tamaño y la cantidad de cada taco
+        y luego usa el botón "Añadir al carrito".
+    </span>
+</p>
+
+    <!-- ============================================================= -->
+    <!--  PRIMERA FILA: 5 TACOS (0 al 5) -->
+    <!-- ============================================================= -->
+    <div class="row g-4 justify-content-center mb-4">
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"
+             th:each="opcion : ${opciones.subList(0, opciones.size() > 5 ? 5 : opciones.size())}">
+
+            <div class="card shadow-sm taco-card h-100">
+
+                <img class="card-img-top"
+                     th:src="@{'/img/' + ${opcion.imagen}}"
+                     alt="Taco">
+
+                <div class="card-body">
+
+                    <h4 class="card-title text-capitalize fw-bold"
+                        th:text="${opcion.nombre}">Nombre Taco</h4>
+
+                    <p class="text-muted small">
+                        Elige el tamaño y la cantidad antes de agregarlo.
+                    </p>
+
+                    <ul class="list-unstyled text-muted small mb-3">
+                        <li><strong>Precios:</strong></li>
+                        <li>Pequeño: $<span th:text="${opcion.precioPequeno}">0</span></li>
+                        <li>Normal: $<span th:text="${opcion.precioNormal}">0</span></li>
+                        <li>Extragrande: $<span th:text="${opcion.precioGrande}">0</span></li>
+                    </ul>
+
+                    <form th:action="@{/menu/carrito/agregar}" method="post">
+                        <input type="hidden" name="idTaco" th:value="${opcion.id}"/>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Tamaño</label>
+                            <select class="form-select" name="tamano" required>
+                                <option value="">Seleccionar tamaño</option>
+                                <option value="Pequeño"
+                                        th:text="'Pequeño - $' + ${opcion.precioPequeno}"></option>
+                                <option value="Normal"
+                                        th:text="'Normal - $' + ${opcion.precioNormal}"></option>
+                                <option value="Extragrande"
+                                        th:text="'Extragrande - $' + ${opcion.precioGrande}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Cantidad</label>
+                            <input type="number" name="cantidad" class="form-control" min="1" value="1" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 fw-semibold mb-2">
+                            ➕ Añadir al carrito
+                        </button>
+                    </form>
+
+                    <div th:if="${session.usuarioLogueado != null
+                        and session.usuarioLogueado.correo != null
+                        and #strings.equalsIgnoreCase(session.usuarioLogueado.correo, 'admin@elmerotaco.com')}">
+
+                        <form th:action="@{/menu/tacos/eliminar/{id}(id=${opcion.id})}" method="post">
+                            <button type="submit"
+                                class="btn btn-outline-danger btn-sm w-100 mt-2"
+                                onclick="return confirm('¿Eliminar este taco del menú?');">
+                                🗑 Eliminar taco
+                            </button>
+                        </form> 
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================================= -->
+    <!--  SEGUNDA FILA: 5 TACOS (5 al final) -->
+    <!-- ============================================================= -->
+    <div class="row g-4 justify-content-center">
+        
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"
+             th:each="opcion : ${opciones.size() > 5 ? opciones.subList(5, opciones.size()) : {}}">
+
+            <div class="card shadow-sm taco-card h-100">
+
+                <img class="card-img-top"
+                     th:src="@{'/img/' + ${opcion.imagen}}"
+                     alt="Taco">
+
+                <div class="card-body">
+
+                    <h4 class="card-title text-capitalize fw-bold"
+                        th:text="${opcion.nombre}">Nombre Taco</h4>
+
+                    <p class="text-muted small">
+                        Elige el tamaño y la cantidad antes de agregarlo.
+                    </p>
+
+                    <ul class="list-unstyled text-muted small mb-3">
+                        <li><strong>Precios:</strong></li>
+                        <li>Pequeño: $<span th:text="${opcion.precioPequeno}">0</span></li>
+                        <li>Normal: $<span th:text="${opcion.precioNormal}">0</span></li>
+                        <li>Extragrande: $<span th:text="${opcion.precioGrande}">0</span></li>
+                    </ul>
+
+                    <form th:action="@{/menu/carrito/agregar}" method="post">
+                        <input type="hidden" name="idTaco" th:value="${opcion.id}"/>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Tamaño</label>
+                            <select class="form-select" name="tamano" required>
+                                <option value="">Seleccionar tamaño</option>
+                                <option value="Pequeño"
+                                        th:text="'Pequeño - $' + ${opcion.precioPequeno}"></option>
+                                <option value="Normal"
+                                        th:text="'Normal - $' + ${opcion.precioNormal}"></option>
+                                <option value="Extragrande"
+                                        th:text="'Extragrande - $' + ${opcion.precioGrande}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Cantidad</label>
+                            <input type="number" name="cantidad" class="form-control" min="1" value="1" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 fw-semibold mb-2">
+                            ➕ Añadir al carrito
+                        </button>
+                    </form>
+
+                    <div th:if="${session.usuarioLogueado != null
+                        and session.usuarioLogueado.correo != null
+                        and #strings.equalsIgnoreCase(session.usuarioLogueado.correo, 'admin@elmerotaco.com')}">
+
+                        <form th:action="@{/menu/tacos/eliminar/{id}(id=${opcion.id})}" method="post">
+    <button type="submit"
+            class="btn btn-outline-danger btn-sm w-100 mt-2"
+            onclick="return confirm('¿Eliminar este taco del menú?');">
+        🗑 Eliminar taco
+    </button>
+</form>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<th:block th:replace="fragments/footer :: footer"></th:block>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

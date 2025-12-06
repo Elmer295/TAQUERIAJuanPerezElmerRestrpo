@@ -1,0 +1,38 @@
+body {
+    background: #fff7ed;
+    font-family: 'Poppins', sans-serif;
+}
+
+.info-container {
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.info-card {
+    max-width: 700px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 18px 35px rgba(0,0,0,0.12);
+    animation: fade 0.6s ease-out;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ea580c;
+    margin-bottom: 20px;
+}
+
+.text {
+    font-size: 1.12rem;
+    color: #374151;
+    line-height: 1.6;
+}
+
+@keyframes fade {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,151 @@
+/* Fondo borroso */
+.background-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://danosseasoning.com/wp-content/uploads/2022/03/Beef-Tacos-1024x767.jpg'); /* Cámbiala tú */
+    background-size: cover;
+    background-position: center;
+    filter: blur(6px) brightness(65%);
+    z-index: -1;
+}
+
+/* Centrado */
+.login-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Logo */
+.login-logo {
+    width: 95px;
+    height: auto;
+    animation: fadeIn 1s ease;
+}
+
+/* Tarjeta */
+.login-card {
+    background: rgba(255, 255, 255, 0.90);
+    padding: 35px;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 18px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+    animation: fadeInUp 0.8s ease;
+}
+
+/* Borde brillante animado */
+.glow-border {
+    position: relative;
+    overflow: hidden;
+}
+
+.glow-border::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    background: linear-gradient(45deg, 
+        #1abc9c, #3498db, #9b59b6, #e67e22, #e74c3c, #1abc9c);
+    background-size: 400%;
+    border-radius: 18px;
+    animation: glow 6s linear infinite;
+    z-index: -1;
+}
+
+@keyframes glow {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+/* Título */
+.login-title {
+    animation: fadeIn 1s ease;
+}
+
+/* Inputs animados */
+.animated-input {
+    border: 2px solid transparent;
+    transition: all 0.25s ease;
+}
+
+.animated-input:hover {
+    border-color: #6c63ff;
+    transform: scale(1.02);
+}
+
+.animated-input:focus {
+    border-color: #4a47d1;
+    box-shadow: 0 0 8px rgba(74, 71, 209, 0.5);
+    transform: scale(1.04);
+}
+
+/* Animación general */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Botón animado */
+.btn-login {
+    transition: 0.25s ease;
+}
+
+.btn-login:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+}
+
+/* 🌙 Modo oscuro automático */
+@media (prefers-color-scheme: dark) {
+    .login-card {
+        background: rgba(25, 25, 25, 0.85);
+        color: #fff;
+    }
+
+    .background-blur {
+        filter: blur(6px) brightness(45%);
+    }
+
+    .animated-input {
+        background: #333;
+        color: #fff;
+        border-color: transparent;
+    }
+
+    .animated-input:hover {
+        border-color: #8c7fff;
+    }
+
+    .animated-input:focus {
+        border-color: #7b68ee;
+    }
+}
+/* Lienzo de partículas */
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Parallax del fondo */
+.parallax {
+    transition: transform 0.2s linear;
+}

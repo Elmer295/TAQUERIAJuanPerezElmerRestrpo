@@ -1,0 +1,158 @@
+/* Fondo de la página */
+.bg-taco {
+    background-color: #f5d198; /* tono suave de fondo */
+    min-height: 100vh;
+    background: url("https://danosseasoning.com/wp-content/uploads/2022/03/Beef-Tacos-1024x767.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+
+.taco-container {
+    display: flex;
+    margin-bottom: 160px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+/* Estilos de cada tarjeta */
+.taco-card {
+    width: 220px;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto hover */
+.taco-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen del taco */
+.taco-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Título */
+.taco-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+.taco-precio {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #d9534f; /* rojo tipo restaurante */
+}
+/* 🌮 FONDO GENERAL */
+.body-menu {
+    background: linear-gradient(180deg, #161616, #2b2b2b);
+    min-height: 100vh;
+    padding-bottom: 50px;
+}
+
+/* 🔥 TÍTULO ANIMADO */
+.titulo-animado h2 {
+    font-size: 2.4rem;
+    animation: slideDown 1s ease;
+}
+
+.titulo-linea {
+    width: 120px;
+    height: 4px;
+    background: #ffcc00;
+    margin: 10px auto 0;
+    border-radius: 10px;
+    animation: expand 1.2s ease;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes expand {
+    from { width: 0; }
+    to   { width: 120px; }
+}
+
+/* 🎯 GRID 5x5 */
+.taco-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 25px;
+}
+
+/* 🟨 CARD ESTILO VERTICAL */
+.taco-card {
+    background: #1f1f1f;
+    padding: 15px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    height: 390px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    transition: 0.3s ease-out;
+    box-shadow: 0 0 0 rgba(255,255,255,0.1);
+}
+
+/* ✨ SOMBRA ANIMADA */
+.taco-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 8px 20px rgba(255, 204, 0, 0.55);
+}
+
+/* IMAGEN */
+.taco-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 13px;
+}
+
+/* TÍTULO */
+.taco-title {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* DESCRIPCIÓN BREVE */
+.taco-desc {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* SELECT */
+.size-select {
+    font-size: 0.85rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+    .taco-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 992px) {
+    .taco-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+    .taco-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 576px) {
+    .taco-grid { grid-template-columns: repeat(1, 1fr); }
+}

@@ -1,0 +1,17 @@
+.navbar-brand {
+    font-size: 1.6rem;
+}
+
+.nav-link {
+    transition: 0.25s;
+}
+
+.nav-link:hover {
+    color: #facc15 !important;
+    transform: translateY(-1px);
+}
+
+.nav-link.active {
+    color: #fbbf24 !important;
+    font-weight: 700;
+}

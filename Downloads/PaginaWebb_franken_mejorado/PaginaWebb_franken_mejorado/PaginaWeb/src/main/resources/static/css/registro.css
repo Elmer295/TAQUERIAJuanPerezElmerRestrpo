@@ -1,0 +1,87 @@
+/* Fondo borroso detrás del formulario */
+.background-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("https://danosseasoning.com/wp-content/uploads/2022/03/Beef-Tacos-1024x767.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px) brightness(0.6);
+    z-index: -2;
+}
+
+/* Canvas de partículas */
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Parallax suave */
+.parallax {
+    transition: transform 0.2s linear;
+}
+
+/* Contenedor principal */
+.register-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Tarjeta del formulario */
+.register-card {
+    width: 450px;
+    padding: 30px;
+    backdrop-filter: blur(4px);
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.25);
+    animation: fadeIn 0.8s ease;
+}
+
+/* Animaciones de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Inputs animados */
+.animated-input {
+    transition: 0.3s;
+}
+
+.animated-input:focus {
+    box-shadow: 0 0 10px rgba(0,123,255,0.5);
+    transform: scale(1.02);
+}
+
+/* Botón */
+.btn-login {
+    padding: 10px;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.btn-login:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(0,0,0,0.25);
+}
+
+/* Glow del borde */
+.glow-border {
+    border: 2px solid rgba(255,255,255,0.3);
+    animation: glow 3s infinite alternate;
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 10px rgba(0,150,255,0.3); }
+    to   { box-shadow: 0 0 18px rgba(0,150,255,0.7); }
+}

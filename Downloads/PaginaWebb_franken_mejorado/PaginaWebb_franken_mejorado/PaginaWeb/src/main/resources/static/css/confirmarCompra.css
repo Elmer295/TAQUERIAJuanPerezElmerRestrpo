@@ -1,0 +1,179 @@
+/* ===== Estilos generales ===== */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    margin: 0;
+    padding: 20px;
+}
+
+/* ===== Contenedor principal ===== */
+.confirmacion-container {
+    background: #ffffffcc;
+    backdrop-filter: blur(6px);
+    max-width: 550px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+    animation: slideUp 0.6s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(25px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* ===== Títulos ===== */
+.titulo {
+    text-align: center;
+    font-size: 2rem;
+    color: #ff7b00;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.subtitulo {
+    font-size: 1.4rem;
+    color: #ff7b00;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* ===== Mensajes ===== */
+.mensaje-error, .mensaje-exito {
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    animation: fadeIn 0.5s ease;
+}
+
+.mensaje-error {
+    background: #ffebee;
+    color: #c62828;
+    border-left: 5px solid #c62828;
+}
+
+.mensaje-exito {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-left: 5px solid #2e7d32;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ===== Tabla responsive ===== */
+.tabla-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tabla-factura {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.tabla-factura th {
+    background: #ff7b00;
+    color: white;
+    padding: 12px;
+    font-size: 0.9rem;
+}
+
+.tabla-factura td {
+    padding: 10px;
+    text-align: center;
+    background: #fff7ec;
+}
+
+.tabla-factura tr:nth-child(even) td {
+    background: #ffeacc;
+}
+
+.tabla-factura tr {
+    transition: background 0.3s ease;
+}
+
+.tabla-factura tr:hover {
+    background: #ffdeaa;
+}
+
+/* ===== Total ===== */
+.total-pagar, .total {
+    margin-top: 18px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #d65a00;
+    text-align: center;
+}
+
+/* ===== Formulario de pago ===== */
+.opcion-pago {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff7ea;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ffd59f;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.opcion-pago:hover {
+    background: #ffe3c2;
+    transform: scale(1.02);
+}
+
+.datos-tarjeta {
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #fff5e0;
+    border: 1px solid #ffc88a;
+    animation: fadeIn 0.4s ease;
+}
+
+.datos-tarjeta input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #ffd9a6;
+    margin-top: 5px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s ease;
+}
+
+.datos-tarjeta input:focus {
+    border-color: #ff7b00;
+}
+
+/* ===== Botones ===== */
+.btn-confirmar,
+.btn-volver {
+    display: block;
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px;
+    background: #ff7b00;
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    border-radius: 10px;
+    text-decoration: none;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn-confirmar:hover,
+.btn-volver:hover {
+    background: #e06800;
+    transform: scale(1.03);
+}

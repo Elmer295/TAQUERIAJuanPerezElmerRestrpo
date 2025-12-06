@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body class="bg-light">
+
+    <div class="container text-center mt-5">
+        <h1 class="text-primary mb-4">🍕 Resultado de tu selección</h1>
+
+        <!-- Si hay una opción seleccionada -->
+        <div th:if="${seleccionada != null}" class="card shadow p-4 mx-auto" style="max-width: 500px;">
+            <h2 th:text="${seleccionada.nombre}" class="text-success mb-3"></h2>
+
+            <img th:src="@{${seleccionada.imagen}}" th:alt="${seleccionada.nombre}" 
+                 class="img-fluid rounded mb-3" style="max-height: 250px; object-fit: cover;">
+
+            <h4 class="text-dark">Precios:</h4>
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Pequeña
+                    <span th:text="'$' + ${seleccionada.precioPequeno}"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Mediana
+                    <span th:text="'$' + ${seleccionada.precioNormal}"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Grande
+                    <span th:text="'$' + ${seleccionada.precioGrande}"></span>
+                </li>
+            </ul>
+
+            <a href="/" class="btn btn-outline-primary">⬅ Volver al menú</a>
+        </div>
+
+        <!-- Si no hay opción seleccionada -->
+        <div th:if="${seleccionada == null}" class="alert alert-danger mt-4">
+            <p>No se encontró la opción seleccionada.</p>
+            <a href="/" class="btn btn-primary">Volver</a>
+        </div>
+    </div>
+
+    <footer class="text-center mt-5 mb-3 text-muted">
+        <p>🍕 Gracias por comprar con nosotros | Síguenos en redes sociales</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+     <th:block th:replace="fragments/footer :: footer"></th:block>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

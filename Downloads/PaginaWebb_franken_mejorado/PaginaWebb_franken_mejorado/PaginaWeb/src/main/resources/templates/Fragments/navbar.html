@@ -1,0 +1,75 @@
+<nav th:fragment="navbar"
+     class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom shadow-sm sticky-top">
+
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-warning" th:href="@{/index}">🌮 ElmeroTaco</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarTacos" aria-controls="navbarTacos"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTacos">
+            <ul class="navbar-nav ms-auto">
+
+                <!-- Inicio -->
+                <li class="nav-item">
+                    <a class="nav-link text-warning fw-semibold" th:href="@{/index}">Inicio</a>
+                </li>
+
+                <!-- Menú principal -->
+                <li class="nav-item">
+                    <a class="nav-link text-warning fw-semibold" th:href="@{/menu}">Menú</a>
+                </li>
+
+                <!-- Carrito -->
+                <li class="nav-item">
+                    <a class="nav-link text-warning fw-semibold" th:href="@{/menu/carrito}">Carrito</a>
+                </li>
+
+                <!-- Información -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-warning fw-semibold"
+                       href="#" id="infoDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Información
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="infoDropdown">
+                        <li><a class="dropdown-item" th:href="@{/mision}">Misión</a></li>
+                        <li><a class="dropdown-item" th:href="@{/vision}">Visión</a></li>
+                        <li><a class="dropdown-item" th:href="@{/objetivo}">Objetivo</a></li>
+                    </ul>
+                </li>
+
+                <!-- Si NO hay usuario logueado -->
+                <li class="nav-item"
+                    th:if="${session.usuarioLogueado == null}">
+                    <a class="nav-link text-warning fw-semibold" th:href="@{/login}">Ingresar</a>
+                </li>
+
+                <li class="nav-item"
+                    th:if="${session.usuarioLogueado == null}">
+                    <a class="nav-link text-warning fw-semibold" th:href="@{/registro}">Registrarse</a>
+                </li>
+
+                <!-- Si SÍ hay usuario logueado -->
+                <li class="nav-item dropdown"
+                    th:if="${session.usuarioLogueado != null}">
+                    <a class="nav-link dropdown-toggle text-warning fw-semibold"
+                       href="#" id="usuarioDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        👤
+                        <span th:text="${session.usuarioLogueado.nombre}">Usuario</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="usuarioDropdown">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Taco</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+
+        /* ===== Fondo general ===== */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffe7c4, #ffd5a1);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        /* ===== Animación de entrada ===== */
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== Card moderna ===== */
+        .card-modern {
+            background: #ffffffdd;
+            backdrop-filter: blur(6px);
+            border: none;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            animation: fadeSlide 0.6s ease;
+        }
+
+        .card-header-modern {
+            background: linear-gradient(135deg, #ff7b00, #ff9800);
+            color: white;
+            padding: 18px;
+            border-radius: 18px 18px 0 0;
+            box-shadow: inset 0 -3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== Input moderno ===== */
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #ffd9b0;
+            padding: 10px;
+            transition: all 0.25s ease;
+        }
+
+        .form-control:focus {
+            border-color: #ff7b00;
+            box-shadow: 0 0 0 3px #ffb97a75;
+        }
+
+        label.form-label {
+            font-weight: 600;
+            color: #964b00;
+        }
+
+        /* ===== Botones ===== */
+        .btn-modern {
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .btn-modern:hover {
+            transform: scale(1.03);
+        }
+
+        .btn-save {
+            background-color: #ff7b00;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background-color: #e56e00;
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #5a636c;
+        }
+
+        /* ===== Íconos dentro del header ===== */
+        .card-header-modern i {
+            margin-right: 6px;
+            
+        }
+
+        /* ===== Tooltip debajo del input ===== */
+        .form-text {
+            font-size: 0.85rem;
+            color: #7a4200;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<th:block th:replace="fragments/navbar :: navbar"></th:block>
+
+<div class="container mt-5">
+    <div class="card card-modern shadow">
+
+        <div class="card-header-modern">
+            <h4 class="mb-0">
+                <i class="ri-add-circle-fill"></i> Agregar nuevo taco
+            </h4>
+        </div>
+
+        <div class="card-body">
+
+            <form th:action="@{/menu/tacos/guardar}" th:object="${taco}" method="post">
+
+                <!-- Nombre del taco -->
+                <div class="mb-3">
+                    <label class="form-label">Nombre del Taco</label>
+                    <input type="text" class="form-control" th:field="*{nombre}" required>
+                </div>
+
+                <!-- Imagen -->
+                <div class="mb-3">
+                    <label class="form-label">Nombre de la imagen (archivo en /img)</label>
+                    <input type="text" class="form-control" th:field="*{imagen}"
+                           placeholder="ej: taco_pastor.png">
+                    <div class="form-text">
+                        Debe existir una imagen con ese nombre en la carpeta <strong>/img</strong>.
+                    </div>
+                </div>
+
+                <!-- Precios -->
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Precio Pequeño</label>
+                        <input type="number" min="0" class="form-control" th:field="*{precioPequeno}" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Precio Normal</label>
+                        <input type="number" min="0" class="form-control" th:field="*{precioNormal}" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Precio Extragrande</label>
+                        <input type="number" min="0" class="form-control" th:field="*{precioGrande}" required>
+                    </div>
+                </div>
+
+                <!-- Botones -->
+                <div class="d-flex justify-content-between mt-4">
+                    <a th:href="@{/menu}" class="btn btn-modern btn-cancel">
+                        <i class="ri-arrow-left-line"></i> Cancelar
+                    </a>
+
+                    <button type="submit" class="btn btn-modern btn-save">
+                        <i class="ri-check-double-fill"></i> Guardar Taco
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="fragments/footer :: footer"></th:block>
+
+</body>
+</html>

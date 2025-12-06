@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar Compra</title>
+    <link rel="stylesheet" href="/css/confirmarCompra.css">
+
+    <!-- Íconos RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="confirmacion-container">
+
+    <h1 class="titulo"><i class="ri-shopping-bag-3-fill"></i> Confirmar Compra</h1>
+
+    <!-- Mensajes de error -->
+    <div th:if="${error}" class="mensaje-error">
+        <p><i class="ri-error-warning-fill"></i> <span th:text="${error}">Debes seleccionar un método de pago.</span></p>
+    </div>
+
+    <!-- Mensajes de éxito -->
+    <div th:if="${mensaje}" class="mensaje-exito">
+        <p><i class="ri-checkbox-circle-fill"></i> <span th:text="${mensaje}">Pago confirmado correctamente.</span></p>
+    </div>
+
+    <!-- Total a pagar -->
+    <p class="total">Total a pagar: <strong th:text="${total}">0</strong> COP</p>
+
+
+    <!-- Mini factura -->
+    <div class="mini-factura" th:if="${carrito != null}">
+        <h2 class="subtitulo"><i class="ri-file-list-3-fill"></i> Resumen de tu pedido</h2>
+
+        <div class="tabla-responsive">
+            <table class="tabla-factura">
+                <thead>
+                <tr>
+                    <th>Taco</th>
+                    <th>Tamaño</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${carrito}">
+                    <td th:text="${item.opcion.nombre}">Taco</td>
+                    <td th:text="${item.tamano}">Normal</td>
+                    <td th:text="${item.cantidad}">1</td>
+                    <td th:text="${item.precio}">0</td>
+                    <td th:text="${item.precio * item.cantidad}">0</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="total-pagar">
+            Total a pagar: <strong>$<span th:text="${total}">0</span></strong>
+        </p>
+    </div>
+
+    <!-- Formulario -->
+    <form th:action="@{/menu/confirmarCompra}" method="post" class="form-pago">
+
+        <label class="metodo-label">Selecciona método de pago:</label>
+
+        <div class="opcion-pago">
+            <input type="radio" id="efectivo" name="metodoPago" value="efectivo" required>
+            <label for="efectivo"><i class="ri-money-dollar-circle-fill"></i> Efectivo</label>
+        </div>
+
+        <div class="opcion-pago">
+            <input type="radio" id="tarjeta" name="metodoPago" value="tarjeta">
+            <label for="tarjeta"><i class="ri-bank-card-fill"></i> Tarjeta</label>
+        </div>
+
+        <div id="datosTarjeta" class="datos-tarjeta">
+            <label>Número de tarjeta:</label>
+            <input type="text" name="numeroTarjeta" maxlength="16">
+
+            <label>Fecha de expiración:</label>
+            <input type="month" name="fechaExp">
+
+            <label>Código CVV:</label>
+            <input type="text" name="codigo" maxlength="3">
+        </div>
+
+        <button type="submit" class="btn-confirmar">
+            <i class="ri-check-double-fill"></i> Confirmar compra
+        </button>
+    </form>
+
+    <a href="/menu/carrito" class="btn-volver">
+        <i class="ri-arrow-left-line"></i> Volver al carrito
+    </a>
+
+</div>
+
+<script>
+    const tarjetaRadio = document.getElementById("tarjeta");
+    const efectivoRadio = document.getElementById("efectivo");
+    const datosTarjeta = document.getElementById("datosTarjeta");
+
+    tarjetaRadio.addEventListener("change", () => {
+        datosTarjeta.style.display = "block";
+    });
+    efectivoRadio.addEventListener("change", () => {
+        datosTarjeta.style.display = "none";
+    });
+</script>
+
+<th:block th:replace="fragments/footer :: footer"></th:block>
+
+</body>
+</html>
