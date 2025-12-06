@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Documentación API - Taquería Franken</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: #cd681a;
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #cd681a 0%, #a8520f 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        .content {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #cd681a;
+            font-size: 32px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #cd681a;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            color: #333;
+            font-size: 24px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .section h4 {
+            color: #555;
+            font-size: 18px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #cd681a;
+        }
+
+        .toc h3 {
+            color: #cd681a;
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style-position: inside;
+            margin-left: 20px;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+        }
+
+        .toc a {
+            color: #cd681a;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table thead {
+            background-color: #cd681a;
+            color: white;
+        }
+
+        table th,
+        table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .code-block {
+            background: #f4f4f4;
+            border-left: 4px solid #cd681a;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .code-block code {
+            color: #333;
+        }
+
+        .json-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border-left: 4px solid #cd681a;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .endpoint {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #cd681a;
+        }
+
+        .endpoint-method {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+            color: white;
+        }
+
+        .method-get {
+            background-color: #61affe;
+        }
+
+        .method-post {
+            background-color: #49cc90;
+        }
+
+        .method-delete {
+            background-color: #f93e3e;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #cd681a;
+        }
+
+        .feature-card h4 {
+            color: #cd681a;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #cd681a;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .success-code {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+
+        .error-code {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+
+        .status-badge-200 {
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .status-badge-201 {
+            background: #1e7e34;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .status-badge-400 {
+            background: #fd7e14;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .status-badge-500 {
+            background: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .example-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .example-section h4 {
+            color: #cd681a;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #cd681a;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #a8520f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .back-to-top {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #cd681a;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .back-to-top:hover {
+            background-color: #a8520f;
+        }
+
+        .footer {
+            background-color: #cd681a;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+            border-top: 3px solid #000;
+        }
+
+        .footer p {
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .navbar a {
+                margin-left: 0;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            table th,
+            table td {
+                padding: 10px;
+            }
+        }
+
+        .divider {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #cd681a, transparent);
+            margin: 40px 0;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .info {
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-content">
+            <h1>🌮 Taquería Franken</h1>
+            <div>
+                <a th:href="@{/}">Inicio</a>
+                <a th:href="@{/menu}">Menú</a>
+                <a th:href="@{/contacto}">Contacto</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📚 Documentación Completa de API</h1>
+            <p>Guía completa de todos los endpoints disponibles en Taquería Franken</p>
+        </div>
+
+        <div class="content">
+            <!-- Tabla de Contenidos -->
+            <div class="toc">
+                <h3>📋 Tabla de Contenidos</h3>
+                <ul>
+                    <li><a href="#intro">Introducción</a></li>
+                    <li><a href="#acceso">Acceso a la Documentación</a></li>
+                    <li><a href="#controllers">Controladores</a></li>
+                    <li><a href="#endpoints">Endpoints por Categoría</a></li>
+                    <li><a href="#modelos">Modelos de Datos</a></li>
+                    <li><a href="#codigos">Códigos de Respuesta HTTP</a></li>
+                    <li><a href="#ejemplos">Ejemplos de Uso</a></li>
+                    <li><a href="#config">Instalación y Configuración</a></li>
+                </ul>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Introducción -->
+            <div class="section" id="intro">
+                <h2>🎯 Introducción</h2>
+                <p>Esta documentación proporciona una guía completa de todos los endpoints disponibles en la API de <strong>Taquería Franken</strong>. La API está documentada usando <strong>Swagger/OpenAPI 3.0</strong> con <strong>SpringDoc-OpenAPI</strong>, proporcionando una interfaz interactiva para explorar y probar todos los endpoints.</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>🔍 Explorabilidad</h4>
+                        <p>Explora todos los endpoints de forma interactiva</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🧪 Pruebas Directas</h4>
+                        <p>Prueba los endpoints directamente desde el navegador</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📋 Esquemas Completos</h4>
+                        <p>Visualiza modelos de datos y validaciones</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📖 Ejemplos</h4>
+                        <p>Ejemplos de request y response para cada endpoint</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Acceso a la Documentación -->
+            <div class="section" id="acceso">
+                <h2>🚀 Acceso a la Documentación Interactiva</h2>
+                
+                <h3>Swagger UI (Recomendado) ✨</h3>
+                <div class="info">
+                    <strong>URL:</strong> <span class="highlight">http://localhost:8081/swagger-ui.html</span>
+                    <p style="margin-top: 10px;">Interfaz web interactiva donde puedes visualizar, entender y probar todos los endpoints.</p>
+                </div>
+
+                <h3>OpenAPI JSON 📋</h3>
+                <div class="info">
+                    <strong>URL:</strong> <span class="highlight">http://localhost:8081/api-docs</span>
+                    <p style="margin-top: 10px;">Especificación completa en formato JSON compatible con herramientas como Postman.</p>
+                </div>
+
+                <div class="success">
+                    <strong>✅ Características de Swagger:</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li>Descripción completa de todos los controladores</li>
+                        <li>Para cada endpoint: descripción, parámetros, respuestas</li>
+                        <li>Interfaz interactiva para probar endpoints</li>
+                        <li>Visualizar esquemas de request/response</li>
+                        <li>Filtrar por tags/categorías</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Controladores -->
+            <div class="section" id="controllers">
+                <h2>🎮 Controladores</h2>
+
+                <!-- HomeController -->
+                <h3>1. HomeController</h3>
+                <p><strong>Descripción:</strong> Gestiona las páginas principales de la aplicación.</p>
+                <p><strong>Base Path:</strong> <span class="highlight">/</span></p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Método</th>
+                            <th>Endpoint</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/</td>
+                            <td>Redirige al login</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/index</td>
+                            <td>Página de inicio</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/mision</td>
+                            <td>Página de misión</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/vision</td>
+                            <td>Página de visión</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/objetivo</td>
+                            <td>Página de objetivos</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/ubicacion</td>
+                            <td>Ubicación de la taquería</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/contacto</td>
+                            <td>Página de contacto</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- UsuarioController -->
+                <h3>2. UsuarioController</h3>
+                <p><strong>Descripción:</strong> Gestiona autenticación y gestión de usuarios.</p>
+                <p><strong>Base Path:</strong> <span class="highlight">/</span></p>
+
+                <h4>Registro</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Método</th>
+                            <th>Endpoint</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/registro</td>
+                            <td>Mostrar formulario de registro</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-post">POST</span></td>
+                            <td>/registro</td>
+                            <td>Procesar nuevo registro de usuario</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Login</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Método</th>
+                            <th>Endpoint</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/login</td>
+                            <td>Mostrar formulario de login</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-post">POST</span></td>
+                            <td>/login</td>
+                            <td>Procesar login de usuario</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Logout</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Método</th>
+                            <th>Endpoint</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/logout</td>
+                            <td>Cerrar sesión actual</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- OpcionController -->
+                <h3>3. OpcionController</h3>
+                <p><strong>Descripción:</strong> Gestiona el menú, carrito de compras y procesos de compra.</p>
+                <p><strong>Base Path:</strong> <span class="highlight">/menu</span></p>
+
+                <h4>Menú</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Método</th>
+                            <th>Endpoint</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/menu</td>
+                            <td>Obtener lista completa de tacos disponibles</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Carrito</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Método</th>
+                            <th>Endpoint</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="endpoint-method method-post">POST</span></td>
+                            <td>/menu/carrito/agregar</td>
+                            <td>Agregar taco al carrito</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/menu/carrito</td>
+                            <td>Ver contenido del carrito</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-post">POST</span></td>
+                            <td>/menu/carrito/editar</td>
+                            <td>Actualizar cantidad de items</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/menu/carrito/eliminar/{id}</td>
+                            <td>Eliminar item específico</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/menu/carrito/cancelar</td>
+                            <td>Cancelar/limpiar carrito</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Compra</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Método</th>
+                            <th>Endpoint</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/menu/confirmarCompra</td>
+                            <td>Mostrar formulario de confirmación de compra</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-post">POST</span></td>
+                            <td>/menu/confirmarCompra</td>
+                            <td>Procesar compra y crear factura</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- TacosController -->
+                <h3>4. TacosController</h3>
+                <p><strong>Descripción:</strong> Gestiona la creación, edición y eliminación de tacos (Administrador).</p>
+                <p><strong>Base Path:</strong> <span class="highlight">/menu/tacos</span></p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Método</th>
+                            <th>Endpoint</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/menu/tacos/nuevo</td>
+                            <td>Mostrar formulario para crear taco</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-post">POST</span></td>
+                            <td>/menu/tacos/guardar</td>
+                            <td>Guardar nuevo taco</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-get">GET</span></td>
+                            <td>/menu/tacos/eliminar/{id}</td>
+                            <td>Mostrar confirmación de eliminación</td>
+                        </tr>
+                        <tr>
+                            <td><span class="endpoint-method method-post">POST</span></td>
+                            <td>/menu/tacos/eliminar/{id}</td>
+                            <td>Eliminar taco</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Endpoints por Categoría -->
+            <div class="section" id="endpoints">
+                <h2>📊 Endpoints por Categoría</h2>
+
+                <h3>🏠 Páginas Principales</h3>
+                <div class="endpoint">
+                    <div><span class="endpoint-method method-get">GET</span> /</div>
+                    <div><span class="endpoint-method method-get">GET</span> /index</div>
+                    <div><span class="endpoint-method method-get">GET</span> /mision</div>
+                    <div><span class="endpoint-method method-get">GET</span> /vision</div>
+                    <div><span class="endpoint-method method-get">GET</span> /objetivo</div>
+                    <div><span class="endpoint-method method-get">GET</span> /ubicacion</div>
+                    <div><span class="endpoint-method method-get">GET</span> /contacto</div>
+                </div>
+
+                <h3>👤 Autenticación</h3>
+                <div class="endpoint">
+                    <div><span class="endpoint-method method-get">GET</span> /login - Mostrar formulario de login</div>
+                    <div><span class="endpoint-method method-post">POST</span> /login - Procesar login</div>
+                    <div><span class="endpoint-method method-get">GET</span> /registro - Mostrar formulario de registro</div>
+                    <div><span class="endpoint-method method-post">POST</span> /registro - Procesar registro</div>
+                    <div><span class="endpoint-method method-get">GET</span> /logout - Cerrar sesión</div>
+                </div>
+
+                <h3>🌮 Menú y Carrito</h3>
+                <div class="endpoint">
+                    <div><span class="endpoint-method method-get">GET</span> /menu - Ver menú de tacos</div>
+                    <div><span class="endpoint-method method-post">POST</span> /menu/carrito/agregar - Agregar taco al carrito</div>
+                    <div><span class="endpoint-method method-get">GET</span> /menu/carrito - Ver carrito</div>
+                    <div><span class="endpoint-method method-post">POST</span> /menu/carrito/editar - Editar cantidades en carrito</div>
+                    <div><span class="endpoint-method method-get">GET</span> /menu/carrito/eliminar/{id} - Eliminar item del carrito</div>
+                    <div><span class="endpoint-method method-get">GET</span> /menu/carrito/cancelar - Cancelar/Limpiar carrito</div>
+                    <div><span class="endpoint-method method-get">GET</span> /menu/confirmarCompra - Ver formulario de compra</div>
+                    <div><span class="endpoint-method method-post">POST</span> /menu/confirmarCompra - Procesar compra</div>
+                </div>
+
+                <h3>📝 Gestión de Tacos (Administrador)</h3>
+                <div class="endpoint">
+                    <div><span class="endpoint-method method-get">GET</span> /menu/tacos/nuevo - Formulario nuevo taco</div>
+                    <div><span class="endpoint-method method-post">POST</span> /menu/tacos/guardar - Guardar taco</div>
+                    <div><span class="endpoint-method method-get">GET</span> /menu/tacos/eliminar/{id} - Confirmar eliminación</div>
+                    <div><span class="endpoint-method method-post">POST</span> /menu/tacos/eliminar/{id} - Eliminar taco</div>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Modelos de Datos -->
+            <div class="section" id="modelos">
+                <h2>🗂️ Modelos de Datos</h2>
+
+                <h3>Usuario</h3>
+                <div class="json-block"><pre>{
+  "id": 1,
+  "nombreUsuario": "string",
+  "email": "string",
+  "contraseña": "string",
+  "fechaRegistro": "2025-12-06",
+  "activo": true
+}</pre></div>
+
+                <h3>Taco</h3>
+                <div class="json-block"><pre>{
+  "id": 1,
+  "nombre": "string",
+  "descripcion": "string",
+  "precio": 15000,
+  "ingredientes": "string",
+  "picante": 1,
+  "disponible": true,
+  "fechaCreacion": "2025-12-06"
+}</pre></div>
+
+                <h3>Carrito</h3>
+                <div class="json-block"><pre>{
+  "id": 1,
+  "usuarioId": 1,
+  "items": [
+    {
+      "id": 1,
+      "tacoId": 1,
+      "cantidad": 2,
+      "precioUnitario": 15000
+    }
+  ],
+  "total": 30000,
+  "fechaCreacion": "2025-12-06"
+}</pre></div>
+
+                <h3>Factura/Pedido</h3>
+                <div class="json-block"><pre>{
+  "id": 1,
+  "numeroFactura": "FAC-2025-0001",
+  "usuarioId": 1,
+  "fecha": "2025-12-06",
+  "items": [...],
+  "subtotal": 30000,
+  "impuesto": 5700,
+  "total": 35700,
+  "estado": "CONFIRMADA",
+  "direccionEntrega": "string",
+  "telefonoContacto": "string"
+}</pre></div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Códigos de Respuesta HTTP -->
+            <div class="section" id="codigos">
+                <h2>📡 Códigos de Respuesta HTTP</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Significado</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="status-badge-200">200</span></td>
+                            <td>OK</td>
+                            <td>Solicitud exitosa</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-badge-201">201</span></td>
+                            <td>Created</td>
+                            <td>Recurso creado exitosamente</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-badge-400">400</span></td>
+                            <td>Bad Request</td>
+                            <td>Solicitud inválida o datos faltantes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-badge-500">500</span></td>
+                            <td>Internal Server Error</td>
+                            <td>Error del servidor</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Ejemplos de Uso -->
+            <div class="section" id="ejemplos">
+                <h2>💡 Ejemplos de Uso</h2>
+
+                <h3>Ejemplo 1: Registro de Usuario</h3>
+                <div class="example-section">
+                    <h4>Request</h4>
+                    <div class="code-block"><pre>POST /registro
+Content-Type: application/json
+
+{
+  "nombreUsuario": "juanperez",
+  "email": "juan@example.com",
+  "contraseña": "MiPassword123",
+  "confirmarContraseña": "MiPassword123"
+}</pre></div>
+
+                    <h4>Response (201 Created)</h4>
+                    <div class="json-block"><pre>{
+  "id": 1,
+  "nombreUsuario": "juanperez",
+  "email": "juan@example.com",
+  "mensaje": "Usuario registrado exitosamente"
+}</pre></div>
+                </div>
+
+                <h3>Ejemplo 2: Login</h3>
+                <div class="example-section">
+                    <h4>Request</h4>
+                    <div class="code-block"><pre>POST /login
+Content-Type: application/json
+
+{
+  "nombreUsuario": "juanperez",
+  "contraseña": "MiPassword123"
+}</pre></div>
+
+                    <h4>Response (200 OK)</h4>
+                    <div class="json-block"><pre>{
+  "id": 1,
+  "nombreUsuario": "juanperez",
+  "email": "juan@example.com",
+  "mensaje": "Login exitoso"
+}</pre></div>
+                </div>
+
+                <h3>Ejemplo 3: Ver Menú</h3>
+                <div class="example-section">
+                    <h4>Request</h4>
+                    <div class="code-block"><pre>GET /menu
+Content-Type: application/json</pre></div>
+
+                    <h4>Response (200 OK)</h4>
+                    <div class="json-block"><pre>{
+  "tacos": [
+    {
+      "id": 1,
+      "nombre": "Taco al Pastor",
+      "descripcion": "Carne marinada con especias",
+      "precio": 15000,
+      "disponible": true
+    },
+    {
+      "id": 2,
+      "nombre": "Taco de Barbacoa",
+      "descripcion": "Carne de res cocida lentamente",
+      "precio": 16000,
+      "disponible": true
+    }
+  ],
+  "total": 2
+}</pre></div>
+                </div>
+
+                <h3>Ejemplo 4: Agregar al Carrito</h3>
+                <div class="example-section">
+                    <h4>Request</h4>
+                    <div class="code-block"><pre>POST /menu/carrito/agregar
+Content-Type: application/json
+
+{
+  "tacoId": 1,
+  "cantidad": 2
+}</pre></div>
+
+                    <h4>Response (200 OK)</h4>
+                    <div class="json-block"><pre>{
+  "id": 1,
+  "usuarioId": 1,
+  "items": [
+    {
+      "tacoId": 1,
+      "cantidad": 2,
+      "subtotal": 30000
+    }
+  ],
+  "total": 30000,
+  "mensaje": "Taco agregado al carrito"
+}</pre></div>
+                </div>
+
+                <h3>Ejemplo 5: Procesar Compra</h3>
+                <div class="example-section">
+                    <h4>Request</h4>
+                    <div class="code-block"><pre>POST /menu/confirmarCompra
+Content-Type: application/json
+
+{
+  "direccionEntrega": "Calle Principal 123, Apartamento 5B",
+  "telefonoContacto": "3001234567",
+  "metodoPago": "TARJETA"
+}</pre></div>
+
+                    <h4>Response (201 Created)</h4>
+                    <div class="json-block"><pre>{
+  "numeroFactura": "FAC-2025-0001",
+  "fecha": "2025-12-06",
+  "usuario": "juanperez",
+  "items": [
+    {
+      "nombre": "Taco al Pastor",
+      "cantidad": 2,
+      "precioUnitario": 15000,
+      "subtotal": 30000
+    }
+  ],
+  "subtotal": 30000,
+  "impuesto": 5700,
+  "total": 35700,
+  "estado": "CONFIRMADA",
+  "mensaje": "Compra realizada exitosamente"
+}</pre></div>
+                </div>
+
+                <h3>Ejemplo 6: Crear Nuevo Taco (Admin)</h3>
+                <div class="example-section">
+                    <h4>Request</h4>
+                    <div class="code-block"><pre>POST /menu/tacos/guardar
+Content-Type: application/json
+
+{
+  "nombre": "Taco de Camarón",
+  "descripcion": "Camarón fresco con salsas caseras",
+  "precio": 18000,
+  "ingredientes": "Camarón, Cilantro, Cebolla, Limón",
+  "picante": 3
+}</pre></div>
+
+                    <h4>Response (201 Created)</h4>
+                    <div class="json-block"><pre>{
+  "id": 6,
+  "nombre": "Taco de Camarón",
+  "descripcion": "Camarón fresco con salsas caseras",
+  "precio": 18000,
+  "ingredientes": "Camarón, Cilantro, Cebolla, Limón",
+  "picante": 3,
+  "disponible": true,
+  "mensaje": "Taco creado exitosamente"
+}</pre></div>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Instalación y Configuración -->
+            <div class="section" id="config">
+                <h2>🔧 Instalación y Configuración</h2>
+
+                <h3>1. Dependencia Maven</h3>
+                <p>La siguiente dependencia ya está configurada en el <span class="highlight">pom.xml</span>:</p>
+                <div class="code-block"><pre>&lt;!-- Swagger/SpringDoc OpenAPI --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springdoc&lt;/groupId&gt;
+    &lt;artifactId&gt;springdoc-openapi-starter-webmvc-ui&lt;/artifactId&gt;
+    &lt;version&gt;2.6.0&lt;/version&gt;
+&lt;/dependency&gt;</pre></div>
+
+                <h3>2. Configuración en application.properties</h3>
+                <div class="code-block"><pre># Swagger Configuration
+springdoc.api-docs.path=/api-docs
+springdoc.swagger-ui.path=/swagger-ui.html
+springdoc.swagger-ui.enabled=true
+springdoc.api-docs.enabled=true</pre></div>
+
+                <h3>3. Anotaciones en Controladores</h3>
+                <p>Todos los controladores incluyen:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><span class="highlight">@Tag</span> - Categoría del controlador</li>
+                    <li><span class="highlight">@Operation</span> - Descripción de cada endpoint</li>
+                    <li><span class="highlight">@ApiResponse</span> - Respuestas posibles</li>
+                    <li><span class="highlight">@Parameter</span> - Documentación de parámetros</li>
+                    <li><span class="highlight">@RequestBody</span> - Documentación de body</li>
+                </ul>
+
+                <h3>4. Cómo Usar la Documentación</h3>
+
+                <h4>Opción 1: Swagger UI (Recomendado)</h4>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li>Inicia la aplicación: <span class="highlight">mvn spring-boot:run</span></li>
+                    <li>Abre en tu navegador: <span class="highlight">http://localhost:8081/swagger-ui.html</span></li>
+                    <li>Explora los endpoints en la interfaz interactiva</li>
+                    <li>Prueba los endpoints directamente desde el navegador</li>
+                </ol>
+
+                <h4>Opción 2: Postman</h4>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li>Importa la especificación OpenAPI</li>
+                    <li>URL: <span class="highlight">http://localhost:8081/api-docs</span></li>
+                    <li>Usa Postman para probar los endpoints</li>
+                </ol>
+
+                <h4>Opción 3: cURL</h4>
+                <p style="margin-top: 10px;">Usa los ejemplos de curl proporcionados arriba</p>
+
+                <div class="success" style="margin-top: 20px;">
+                    <strong>✅ Características de la Documentación:</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li>✨ <strong>Interfaz Interactiva</strong> - Visualiza todos los endpoints</li>
+                        <li>🔍 <strong>Búsqueda y Filtrado</strong> - Busca por nombre o tags</li>
+                        <li>📋 <strong>Modelos de Datos</strong> - Esquemas JSON completos</li>
+                        <li>🧪 <strong>Pruebas Interactivas</strong> - Probador de API integrado</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Botones de Acción -->
+            <div style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
+                <h3>🚀 Siguiente Paso</h3>
+                <div class="button-group" style="justify-content: center;">
+                    <a href="http://localhost:8081/swagger-ui.html" target="_blank" class="btn btn-primary">
+                        📚 Ir a Swagger UI
+                    </a>
+                    <a th:href="@{/menu}" class="btn btn-secondary">
+                        🌮 Ir al Menú
+                    </a>
+                </div>
+            </div>
+
+            <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 8px; margin-top: 30px;">
+                <p><strong>📖 Para más información:</strong></p>
+                <p style="margin-top: 10px;">
+                    Documentación oficial SpringDoc: 
+                    <a href="https://springdoc.org/" target="_blank" style="color: #cd681a; text-decoration: none;">
+                        https://springdoc.org/
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:insert="~{Fragments/footer :: footer}"></div>
+</body>
+</html>
