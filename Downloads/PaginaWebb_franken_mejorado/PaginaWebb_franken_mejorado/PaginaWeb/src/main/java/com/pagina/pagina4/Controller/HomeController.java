@@ -77,6 +77,6 @@ public class HomeController {
                description = "Muestra la página con la docuemntacion de la pagina")
     @ApiResponse(responseCode = "200", description = "Página de documentacion mostrada exitosamente")
     public String documentacion() {
-        return "documentacion";
+        return "Documentacion";
     }
 }
