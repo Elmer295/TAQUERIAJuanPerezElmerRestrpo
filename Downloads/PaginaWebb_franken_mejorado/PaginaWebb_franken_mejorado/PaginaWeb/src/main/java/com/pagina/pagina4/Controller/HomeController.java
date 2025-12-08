@@ -38,6 +38,9 @@ public class HomeController {
         return "mision";
     }
 
+
+
+    
     @GetMapping("/ubicacion")
     @Operation(summary = "Mostrar página de ubicación", 
                description = "Muestra la página con la ubicación de la taquería")
@@ -68,5 +71,12 @@ public class HomeController {
     @ApiResponse(responseCode = "200", description = "Página de objetivos mostrada exitosamente")
     public String objetivo() {
         return "objetivo";
+    }
+     @GetMapping("/Documentacion")
+    @Operation(summary = "Mostrar página de misión", 
+               description = "Muestra la página con la docuemntacion de la pagina")
+    @ApiResponse(responseCode = "200", description = "Página de documentacion mostrada exitosamente")
+    public String documentacion() {
+        return "documentacion";
     }
 }
