@@ -17,9 +17,9 @@ public class HomeController {
     @GetMapping("/")
     @Operation(summary = "Redirige a la página de login", 
                description = "Redirige automáticamente a la página de inicio de sesión")
-    @ApiResponse(responseCode = "302", description = "Redireccionamiento a /login")
+    @ApiResponse(responseCode = "302", description = "Redireccionamiento a /index")
     public String raiz() {
-        return "redirect:/login";
+        return "redirect:/index";
     }
 
     @GetMapping("/index")

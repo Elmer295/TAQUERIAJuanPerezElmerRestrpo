@@ -47,22 +47,15 @@ public class OpcionController {
         @ApiResponse(responseCode = "200", description = "Menú mostrado exitosamente"),
         @ApiResponse(responseCode = "302", description = "Usuario no autenticado, redirige a /login")
     })
-    public String mostrarOpciones(Model model, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
-        if (usuario == null) return "redirect:/login";
+    public String mostrarOpciones(Model model) {
+        
 
         List<Opcion> opciones = opcionRepository.findAll();
         model.addAttribute("opciones", opciones);
         return "seleccion";
     }
 
-    @GetMapping("/")
-    @Operation(summary = "Redirige al menú", 
-               description = "Redirige a la página de login")
-    @ApiResponse(responseCode = "302", description = "Redireccionamiento a /login")
-    public String raiz() {
-        return "redirect:/login";
-    }
+   
 
     // ================== CARRITO ==================
 

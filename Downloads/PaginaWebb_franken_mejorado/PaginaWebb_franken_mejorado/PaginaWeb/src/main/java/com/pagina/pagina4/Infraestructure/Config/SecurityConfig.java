@@ -32,8 +32,8 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/", "/index", "/login", "/registro",
                     "/css/**", "/js/**", "/images/**", "/webjars/**",
-                    "/mision", "/vision", "/contacto", "/ubicacion", "/seleccion",
-                    "/menu", "/menu/**"
+                    "/mision", "/vision", "/objetivo", "/contacto", "/ubicacion", "/seleccion",
+                    "/menu", "/menu/**", "/Documentacion"
                 ).permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/menu/**", "/carrito/**", "/confirmarCompra", "/checkout")

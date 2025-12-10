@@ -460,18 +460,8 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="navbar-content">
-            <h1>🌮 Taquería ElmeroTaco</h1>
-            <div>
-                <a th:href="@{/}">Inicio</a>
-                <a th:href="@{/menu}">Menú</a>
-                <a th:href="@{/contacto}">Contacto</a>
-            </div>
-        </div>
-    </div>
-
+   
+<th:block th:replace="fragments/navbar :: navbar"></th:block>
     <!-- Main Container -->
     <div class="container">
         <!-- Header -->
